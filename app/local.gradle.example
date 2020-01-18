@@ -1,0 +1,11 @@
+android {
+    buildTypes {
+        debug {
+            buildConfigField 'String', 'NEWS_URL', '"https://newsapi.org/v2/"'
+            buildConfigField 'String', 'API_KEY_NAME', '"apiKey"'
+            buildConfigField 'String', 'API_KEY_VALUE', '"<your-news-api-key-here>"'
+            buildConfigField 'String', 'SOURCES_NAME', '"sources"'
+            buildConfigField 'String', 'SOURCES_VALUE', '"the-verge,engadget,techcrunch"'
+        }
+    }
+}

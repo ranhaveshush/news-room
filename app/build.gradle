@@ -1,0 +1,78 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs'
+
+apply from: "${project.rootDir}/config/gradle/moduleTasks.gradle"
+
+if (file("local.gradle").exists()) {
+    apply from: "local.gradle"
+} else {
+    logger.lifecycle("File app/local.gradle not found. Duplicate app/local.gradle.example and fill in your API key.")
+}
+
+android {
+    compileSdkVersion version_compile_sdk
+    defaultConfig {
+        applicationId "com.example.baseapp"
+        minSdkVersion version_min_sdk
+        targetSdkVersion version_target_sdk
+        versionCode version_code
+        versionName version_name
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${version_kotlin_stdlib_jdk8}"
+    implementation "androidx.core:core-ktx:${version_core_ktx}"
+    // AndroidX legacy
+    implementation "androidx.legacy:legacy-support-v4:${version_legacy}"
+    // AndroidX UI
+    implementation "androidx.appcompat:appcompat:${version_appcompat}"
+    implementation "androidx.fragment:fragment:${version_fragment}"
+    implementation "androidx.fragment:fragment-ktx:${version_fragment}"
+    implementation "androidx.fragment:fragment-testing:${version_fragment}"
+    implementation "androidx.constraintlayout:constraintlayout:${version_constraintlayout}"
+    // AndroidX lifecycle
+    implementation "androidx.lifecycle:lifecycle-extensions:${version_lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${version_lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${version_lifecycle}"
+    // AndroidX navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:${version_navigation}"
+    implementation "androidx.navigation:navigation-ui-ktx:${version_navigation}"
+    // AndroidX room
+    implementation "androidx.room:room-ktx:${version_room}"
+    kapt "androidx.room:room-compiler:${version_room}"
+    // Android chrome tabs
+    implementation "com.android.support:customtabs:${version_customtabs}"
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:${version_retrofit}"
+    implementation "com.squareup.retrofit2:converter-moshi:${version_retrofit}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${version_logging_interceptor}"
+    // Coil - Image loader
+    implementation "io.coil-kt:coil:${version_coil}"
+    // Test
+    testImplementation "junit:junit:${version_junit}"
+    androidTestImplementation "androidx.test.ext:junit:${version_ext_junit}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${version_espresso}"
+}

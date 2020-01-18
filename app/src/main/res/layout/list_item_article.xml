@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="clickListener"
+                type="android.view.View.OnClickListener" />
+
+        <variable
+                name="article"
+                type="com.example.baseapp.vo.Article" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="@{clickListener}"
+            android:padding="@dimen/padding_medium">
+
+        <ImageView
+                android:id="@+id/imageView_articleImage"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:contentDescription="@string/article_image_content_description"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{article.urlToImage}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+        <TextView
+                android:id="@+id/textView_articleTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/article_title_background"
+                android:padding="@dimen/padding_medium"
+                android:text="@{article.title}"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/imageView_articleImage"
+                app:layout_constraintEnd_toEndOf="@id/imageView_articleImage"
+                app:layout_constraintStart_toStartOf="@id/imageView_articleImage"
+                tools:text="Article Title" />
+
+        <TextView
+                android:id="@+id/textView_articleDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:text="@{article.description}"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?android:attr/textColorSecondary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView_articleTitle"
+                tools:text="@tools:sample/lorem/random" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
