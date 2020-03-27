@@ -44,14 +44,14 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${version_kotlin_stdlib_jdk8}"
+    // AndroidX core
     implementation "androidx.core:core-ktx:${version_core_ktx}"
     // AndroidX legacy
     implementation "androidx.legacy:legacy-support-v4:${version_legacy}"
     // AndroidX UI
     implementation "androidx.appcompat:appcompat:${version_appcompat}"
-    implementation "androidx.fragment:fragment:${version_fragment}"
     implementation "androidx.fragment:fragment-ktx:${version_fragment}"
-    implementation "androidx.fragment:fragment-testing:${version_fragment}"
+    debugImplementation "androidx.fragment:fragment-testing:${version_fragment}"
     implementation "androidx.constraintlayout:constraintlayout:${version_constraintlayout}"
     // AndroidX lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:${version_lifecycle}"
