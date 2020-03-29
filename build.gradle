@@ -52,10 +52,10 @@ allprojects {
     ext.version_customtabs = '28.0.0'
 
     // Coil - Image Loader
-    ext.version_coil = '0.9.1'
+    ext.version_coil = '0.9.5'
 
     // Retrofit
-    ext.version_retrofit = '2.7.1'
+    ext.version_retrofit = '2.8.1'
     ext.version_logging_interceptor = '3.12.3' // Latest version to support API level < 24.
 
     repositories {
