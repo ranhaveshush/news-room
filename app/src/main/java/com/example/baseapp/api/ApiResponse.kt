@@ -19,17 +19,30 @@ package com.example.baseapp.api
 import retrofit2.Response
 
 /**
- * Common class used by API responses.
+ * This class decouples the used networking library (e.g. Retrofit) from the rest of the app.
  *
- * @param T The type of the response object
+ * Used by API clients to transform specific API response
+ * (e.g. Retrofit [Response][retrofit2.Response]) to [ApiResponse].
+ *
+ * Used by repositories to transform the [API response][ApiResponse] to a [resource][Resource].
+ *
+ * @param T The type of the response data object
  */
 @Suppress("unused") // T is used in extending classes
 sealed class ApiResponse<T> {
     companion object {
+        private const val UNKNOWN_ERROR = "unknown error"
+
+        /**
+         * Creates an [ErrorApiResponse] from a given [error][Throwable].
+         */
         fun <T> create(error: Throwable): ErrorApiResponse<T> {
-            return ErrorApiResponse(error.message ?: "unknown error", error)
+            return ErrorApiResponse(error.message ?: UNKNOWN_ERROR, error)
         }
 
+        /**
+         * Creates an [ApiResponse] from a given Retrofit [Response][retrofit2.Response].
+         */
         fun <T> create(response: Response<T>): ApiResponse<T> {
             return if (response.isSuccessful) {
                 val body = response.body()
@@ -45,16 +58,25 @@ sealed class ApiResponse<T> {
                 } else {
                     errorMessage
                 }
-                ErrorApiResponse(message ?: "unknown error")
+                ErrorApiResponse(message ?: UNKNOWN_ERROR)
             }
         }
     }
 }
 
+/**
+ * An empty success response.
+ */
 class EmptyApiResponse<T> : ApiResponse<T>()
 
+/**
+ * A success response with a typed [T] data as it's body.
+ */
 data class SuccessApiResponse<T>(val body: T) : ApiResponse<T>()
 
+/**
+ * An error response with a message and an optional [cause][Throwable].
+ */
 data class ErrorApiResponse<T>(
     val message: String,
     val error: Throwable? = null
