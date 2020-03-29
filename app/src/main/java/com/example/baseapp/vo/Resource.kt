@@ -2,7 +2,7 @@ package com.example.baseapp.vo
 
 /**
  * Common class used by repositories to represent a returned [resource state][State] and
- * in case of a success resource also it's typed data.
+ * in case of a success resource also it's typed data [T].
  */
 sealed class Resource<out T> {
     abstract val state: State
